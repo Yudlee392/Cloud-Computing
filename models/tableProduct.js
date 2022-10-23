@@ -1,39 +1,31 @@
-//* import library
+//! import library
 const pg_conn = require("./pg_config")
 const productData = require("./productData")
 const shopData = require("./shopData")
 const authen = require("./authenticator")
 
 async function tableString(shopId, role) {
-    //* get data from table products and shops
+    //! get data from table products and shops
     let [productsInfo, productsRowCount, productsField] = await productData(shopId)
     let [shopInfo, shopField] = await shopData(shopId)
 
-    //* shop info
+    //! shop info
     let heading = ''
     shopField.forEach(field => {
         let fieldName = field.name
         heading += `${fieldName.toUpperCase()}: ${shopInfo[fieldName]}; `
     })
 
-    //* Heading of table
+    //! Heading of table
     let tableHeading = ''
-    if (role == 'shop') tableHeading += `
-        <form method="POST" action="/addProduct">
-            <button type="submit" class="btn btn-success">Add product</button>
-        </form>
-        <form method="POST" action="/updateProduct">
-            <button type="submit" class="btn btn-success ml-1">Update product</button>
-        </form>
-        <form method="POST" action="/deleteProduct">
-            <button type="submit" class="btn btn-success ml-1">Delete product</button>
-        </form>
-    `
     productsField.forEach(field => {
         tableHeading += `<th scope="col">${field.name}</th>`
     })
-
-    //* Body of table
+    if (role == 'shop') {
+        tableHeading += `<th scope="col">Action</th>`
+    }
+    
+    //! Body of table
     let tableBody = ''
     for (let i = 0; i < productsRowCount; i++) {
         tableBody += '<tr>'
@@ -43,10 +35,42 @@ async function tableString(shopId, role) {
                 <td>${productsInfo[i][fieldName]}</td>
             `
         }
-        tableBody += '</tr>'
+        if (role == 'shop') {
+            tableBody += `
+                <td>
+                <form action ="/stored" method = "post">
+                    <button type="submit" class="btn btn-danger" name="delete" value ="${productsInfo[i].id}">Delete</button>
+                    <button type="submit" class="btn btn-primary ml-1" name ="update" value ="${productsInfo[i].id}">Update</button>
+                </form>
+                </td>`
+        }
+        tableBody += `</tr>`
+    }
+    if (role == 'shop') {
+        tableBody += `<tr> <form method = "post" action ="/stored">`
+        tableBody += `
+                <td>
+                    <input type="text" class="form-control" readonly>
+                </td>
+            `
+        for (let i = 1; i < productsField.length -1; i++) {
+            tableBody += `
+                <td>
+                    <input type="text" class="form-control" name="insert_${productsField[i].name}" placeholder="${productsField[i].name.toUpperCase()}">
+                </td>
+            `
+        }
+        tableBody += `
+                <td>
+                    <input type="text" class="form-control" readonly>
+                </td>
+            `
+        tableBody += `<td><button style="width: 160px !important;" type="submit" class="btn btn-success" name="insert" value ="insert">Insert</button></td>
+                    </form> </tr>
+        `
     }
 
-    //? Table HTML
+    //! Table HTML
     let tableString = `
         <blockquote class="blockquote mt-4">
             <p class="mb-0">${heading}</p>

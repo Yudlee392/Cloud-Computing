@@ -8,6 +8,7 @@ const selectShopDataModule = require('../models/selectShopData');
 const insertProductModule = require('../models/productAdd');
 const updateProductModule = require('../models/productUpdate');
 const deleteProductModule = require('../models/productDelete');
+const formProductModule = require('../models/productForm');
 var path = require('path');
 
 
@@ -71,54 +72,50 @@ router.post('/adminFind', async function (req, res, next) {
   })
 })
 
-/* insert page. */
-router.post('/addProduct', function (req, res, next) {
-  res.render('insertProduct');
-});
-
-/* update page. */
-router.post('/updateProduct', function (req, res, next) {
-  res.render('updateProduct');
-});
-
-/* delete page. */
-router.post('/deleteProduct', function (req, res, next) {
-  res.render('deleteProduct');
-});
 
 // stored
 router.post('/stored', async function (req, res, next) {
-  let id = req.body.idProduct;
-  let name = req.body.nameProduct;
-  let price = req.body.priceProduct;
-  let quantity = req.body.quantityProduct;
-  let action = req.body.action;
-  let message
+  let deleteProductId = req.body.delete
+  let updateProduct = req.body.update
+  let id = req.body.id;
+  let name = req.body.name;
+  let price = req.body.price;
+  let quantity = req.body.quantity;
+  let updated = req.body.updated;
+  let insertName = req.body.insert_name;
+  let insertPrice = req.body.insert_price;
+  let insertQuantity = req.body.insert_quantity;
+  let insertAction = req.body.insert;
+  let message =''
   let [authenticated, shop_id, role] = await authenModule(username, password)
-  if (action == 'insert') {
-    if (name && price && quantity) {
-      insertProductModule(name, price, quantity, shop_id)
-      message = 'Add successfully'
-    } else {
-      message = 'Add failed'
-    }
-  } else if (action == 'update') {
-    if (id && name && price && quantity) {
-      updateProductModule(id, name, price, quantity, shop_id)
-      message = 'Update successfully'
-    } else {
-      message = 'Update failed'
-    }
-  } else if (action == 'delete') {
-    if (id) {
-      deleteProductModule(id, shop_id)
-      message = 'Delete successfully'
-    } else {
-      message = 'Delete failed'
-    }
+  if (deleteProductId) {
+    deleteProductModule(deleteProductId, shop_id)
+    let tableString = await tableProductModule(shop_id, role)
+    res.render('users', {
+      title: 'USER page',
+      data: tableString,
+      message: message
+    })
   }
   
-  if (authenticated) {
+  if (updateProduct) {
+    formGroup = await formProductModule(updateProduct)
+    res.render('updateProduct', {
+      formGroup: formGroup,
+      idUpdate: updateProduct,
+    });
+  }
+  if (updated) {
+    updateProductModule(id,name,price, quantity, shop_id)
+    let tableString = await tableProductModule(shop_id, role)
+    res.render('users', {
+      title: 'USER page',
+      data: tableString,
+      message: message
+    })
+  }
+  if (insertAction) {
+    insertProductModule(insertName, insertPrice, insertQuantity, shop_id)
     let tableString = await tableProductModule(shop_id, role)
     res.render('users', {
       title: 'USER page',
@@ -127,6 +124,8 @@ router.post('/stored', async function (req, res, next) {
     })
   }
 });
+
+
 
 
 module.exports = router;

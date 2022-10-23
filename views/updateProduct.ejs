@@ -12,24 +12,8 @@
     <div class="container mt-4">
         <h1>Update product</h1>
         <form method="post" action="/stored">
-            <div class="form-group">
-                <label for="id-product">ID</label>
-                <input type="text" class="form-control" id="id-product" name="idProduct" placeholder="ID product">
-            </div>
-            <div class="form-group">
-                <label for="name-product">Name</label>
-                <input type="text" class="form-control" id="name-product" name="nameProduct" placeholder="Name product">
-            </div>
-            <div class="form-group">
-                <label for="price-product">Price</label>
-                <input type="text" class="form-control" id="price-product" name="priceProduct"
-                    placeholder="Price product">
-            </div>
-            <div class="form-group">
-                <label for="quantity-product">Quantity</label>
-                <input type="text" class="form-control" id="quantity-product" name="quantityProduct" placeholder="Quantity product">
-            </div>
-            <input type="hidden" id="update" name="action" value="update">
+            <%- formGroup %>
+            <input type="hidden" id="updateProduct" name="updated" value= <%= idUpdate %>>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
