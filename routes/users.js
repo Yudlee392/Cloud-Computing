@@ -25,9 +25,25 @@ router.get('/', async function (req, res, next) {
     res.render('login', { title: 'Login page', notice: "Please login first" })
   }
 });
+// router.get('/delete', async function (req, res, next) {
+//   session = req.session;
+//   if (session.user_id) {
+//     let username = session.user_id;
+//     let shop_id = session.shop_id;
+//     let role = session.role;
+//     let tableString = await tableProductModule(shop_id, role)
+//     res.render('users', {
+//       title: 'USER page',
+//       data: tableString,
+//       message: ''
+//     })
+//   } else {
+//     res.render('login', { title: 'Login page', notice: "Please login first" })
+//   }
+// });
 
 
-router.post('/', async function (req, res, next) {
+router.post('/insert', async function (req, res, next) {
   session = req.session;
   let shop_id = session.shop_id;
   let role = session.role;
@@ -44,25 +60,29 @@ router.post('/', async function (req, res, next) {
   })
 })
 
-router.post('/action', async function (req, res, next) {
+router.post('/delete', async function (req, res, next) { 
+  let deleteProductId = req.body.delete
+  let shop_id = session.shop_id;
+  let role = session.role;
+  let message = ''
+  let tableString
+  deleteProductModule(deleteProductId, shop_id)
+  tableString = await tableProductModule(shop_id, role)
+  res.render('users', {
+    title: 'USER page',
+    data: tableString,
+    message: 'Deleted successfully'
+  })
+})
+
+router.post('/update', async function (req, res, next) {
   session = req.session;
   let shop_id = session.shop_id;
   let role = session.role;
-  let deleteProductId = req.body.delete
   let updateProduct = req.body.update
   let updated = req.body.updated;
   let message = ''
   let tableString
-  if (deleteProductId) {
-    deleteProductModule(deleteProductId, shop_id)
-    tableString = await tableProductModule(shop_id, role)
-    res.render('users', {
-      title: 'USER page',
-      data: tableString,
-      message: 'Deleted successfully'
-    })
-  }
-
   if (updateProduct) {
     formGroup = await formProductModule(updateProduct)
     res.render('updateProduct', {

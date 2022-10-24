@@ -40,9 +40,11 @@ async function tableString(shopId, role) {
         }
         if (role == 'shop') {
             tableBody += `
-                <td>
-                <form action ="/users/action" method = "post">
+                <td style="display: flex;">
+                <form action ="/users/delete" method = "post">
                     <button type="submit" class="btn btn-danger" name="delete" value ="${productsInfo[i].id}">Delete</button>
+                </form>
+                <form action ="/users/update" method = "post">
                     <button type="submit" class="btn btn-primary ml-1" name ="update" value ="${productsInfo[i].id}">Update</button>
                 </form>
                 </td>`
@@ -50,7 +52,7 @@ async function tableString(shopId, role) {
         tableBody += `</tr>`
     }
     if (role == 'shop') {
-        tableBody += `<tr> <form method = "post" action ="/users">`
+        tableBody += `<tr> <form method = "post" action ="/users/insert">`
         tableBody += `
                 <td>
                     <input type="text" class="form-control" readonly>
