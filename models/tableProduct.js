@@ -17,7 +17,7 @@ async function tableString(shopId, role) {
             heading += `${fieldName.toUpperCase()}: ${shopInfo[fieldName]}; `
         }
     })
-    if (role == 'shop') { heading += '<a href="/logout" class="btn btn-danger">Logout</a>' }
+    if (role == 'shop') { heading += '<a style="text-shadow: none;" href="/logout" class="btn btn-danger">Logout</a>' }
 
     //! Heading of table
     let tableHeading = ''

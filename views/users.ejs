@@ -56,13 +56,11 @@
 <body>
 
     <%- data %>
-        <h6 class="message" style="display: none;">
-            <%= message %>
-        </h6>
+        <h6 class="message" style="display: none;"><%= message %></h6>
         <!-- <a href="http://127.0.0.1:3000/users" class="btn btn-primary">Refresh</a> -->
 
         <script>
-            let message = document.querySelector('.message').textContent
+            let message = document.querySelector('.message').textContent.trim();
             if (message == 'Deleted successfully' || message == 'Updated successfully') {
                 window.onload = function () {
                     if (!window.location.hash) {
@@ -71,7 +69,6 @@
                     }
                 }
             }
-
         </script>
 </body>
 

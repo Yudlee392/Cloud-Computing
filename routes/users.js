@@ -67,9 +67,7 @@ router.post('/delete', async function (req, res, next) {
   let deleteProductId = req.body.delete
   let shop_id = session.shop_id;
   let role = session.role;
-  TimeOut(1000)
   deleteProductModule(deleteProductId, shop_id)
-  TimeOut(2000)
   let tableString = await tableProductModule(shop_id, role)
   res.render('users', {
     title: 'USER page',
@@ -97,9 +95,7 @@ router.post('/update', async function (req, res, next) {
     let name = req.body.name;
     let price = req.body.price;
     let quantity = req.body.quantity;
-    TimeOut(1000)
     updateProductModule(id, name, price, quantity, shop_id)
-    TimeOut(2000)
     tableString = await tableProductModule(shop_id, role)
     res.render('users', {
       title: 'USER page',
