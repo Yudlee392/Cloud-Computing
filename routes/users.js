@@ -5,6 +5,7 @@ const insertProductModule = require('../models/productAdd');
 const updateProductModule = require('../models/productUpdate');
 const deleteProductModule = require('../models/productDelete');
 const formProductModule = require('../models/productForm');
+const TimeOut = require('../models/timeOut');
 
 var session;
 
@@ -52,7 +53,9 @@ router.post('/insert', async function (req, res, next) {
   let insertPrice = req.body.insert_price;
   let insertQuantity = req.body.insert_quantity;
   insertProductModule(insertName, insertPrice, insertQuantity, shop_id)
+  TimeOut(1000)
   let tableString = await tableProductModule(shop_id, role)
+  TimeOut(2000)
   res.render('users', {
     title: 'USER page',
     data: tableString,
@@ -64,7 +67,6 @@ router.post('/delete', async function (req, res, next) {
   let deleteProductId = req.body.delete
   let shop_id = session.shop_id;
   let role = session.role;
-  let message = ''
   let tableString
   deleteProductModule(deleteProductId, shop_id)
   tableString = await tableProductModule(shop_id, role)
@@ -81,7 +83,6 @@ router.post('/update', async function (req, res, next) {
   let role = session.role;
   let updateProduct = req.body.update
   let updated = req.body.updated;
-  let message = ''
   let tableString
   if (updateProduct) {
     formGroup = await formProductModule(updateProduct)

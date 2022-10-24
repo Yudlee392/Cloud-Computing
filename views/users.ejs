@@ -15,10 +15,21 @@
 <body>
     <%- data %>
     <br>
-    <h6 style="color: red;">
-        <%= message %>
-    </h6>
+    <h6 class="message" style="color: red;"><%= message %></h6>
     <!-- <a href="http://127.0.0.1:3000/users" class="btn btn-primary">Refresh</a> -->
+
+    <script>
+        let message = document.querySelector('.message').textContent
+        if(message == 'Deleted successfully' || message == 'Updated successfully') {
+            window.onload = function () {
+                if (!window.location.hash) {
+                    window.location = window.location + '#loaded';
+                    window.location.reload();
+                }
+            }
+        }
+        
+    </script>
 </body>
 
 </html>
