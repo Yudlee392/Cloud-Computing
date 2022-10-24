@@ -11,9 +11,15 @@
 <body>
     <div class="container">
         <h1><%= title %></h1>
+        <a href="/logout" class="btn btn-danger">Logout</a> <br>
         <%- selectBox %>
         <%- selectData %>
     </div>
 
+    <script type="text/JavaScript">
+        (function AutoRefresh() {
+                setTimeout("location.reload(true);", 10000);
+        })()
+    </script>
 </body>
 </html>

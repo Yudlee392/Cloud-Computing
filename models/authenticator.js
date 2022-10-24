@@ -14,7 +14,6 @@ async function authen(user, pass) {
         shop_id = query_data.rows[0].shop 
         role = query_data.rows[0].role
     }
-    console.log([authenticated, shop_id, role])
     return [authenticated,shop_id,role]
 }
 authen('linh', '123456')

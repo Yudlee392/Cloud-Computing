@@ -1,22 +1,25 @@
-//! import library
+//* import library
 const pg_conn = require("./pg_config")
 const productData = require("./productData")
 const shopData = require("./shopData")
 const authen = require("./authenticator")
 
 async function tableString(shopId, role) {
-    //! get data from table products and shops
+    //* get data from table products and shops
     let [productsInfo, productsRowCount, productsField] = await productData(shopId)
     let [shopInfo, shopField] = await shopData(shopId)
 
-    //! shop info
+    //* shop info
     let heading = ''
     shopField.forEach(field => {
         let fieldName = field.name
-        heading += `${fieldName.toUpperCase()}: ${shopInfo[fieldName]}; `
+        if (fieldName) {
+            heading += `${fieldName.toUpperCase()}: ${shopInfo[fieldName]}; `
+        }
     })
+    if (role == 'shop') { heading += '<a href="/logout" class="btn btn-danger">Logout</a>' }
 
-    //! Heading of table
+    //* Heading of table
     let tableHeading = ''
     productsField.forEach(field => {
         tableHeading += `<th scope="col">${field.name}</th>`
@@ -25,7 +28,7 @@ async function tableString(shopId, role) {
         tableHeading += `<th scope="col">Action</th>`
     }
     
-    //! Body of table
+    //* Body of table
     let tableBody = ''
     for (let i = 0; i < productsRowCount; i++) {
         tableBody += '<tr>'
@@ -38,7 +41,7 @@ async function tableString(shopId, role) {
         if (role == 'shop') {
             tableBody += `
                 <td>
-                <form action ="/stored" method = "post">
+                <form action ="http://127.0.0.1:3000/users/action" method = "post">
                     <button type="submit" class="btn btn-danger" name="delete" value ="${productsInfo[i].id}">Delete</button>
                     <button type="submit" class="btn btn-primary ml-1" name ="update" value ="${productsInfo[i].id}">Update</button>
                 </form>
@@ -47,7 +50,7 @@ async function tableString(shopId, role) {
         tableBody += `</tr>`
     }
     if (role == 'shop') {
-        tableBody += `<tr> <form method = "post" action ="/stored">`
+        tableBody += `<tr> <form method = "post" action ="http://127.0.0.1:3000/users">`
         tableBody += `
                 <td>
                     <input type="text" class="form-control" readonly>
@@ -70,7 +73,7 @@ async function tableString(shopId, role) {
         `
     }
 
-    //! Table HTML
+    //? Table HTML
     let tableString = `
         <blockquote class="blockquote mt-4">
             <p class="mb-0">${heading}</p>
