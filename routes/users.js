@@ -23,7 +23,7 @@ router.get('/', async function (req, res, next) {
       message: ''
     })
   } else {
-    res.render('login', { title: 'Login page', notice: "Please login first" })
+    res.render('login', { title: 'We are ATN Company', notice: "Please login first" })
   }
 });
 // router.get('/delete', async function (req, res, next) {
@@ -53,9 +53,7 @@ router.post('/insert', async function (req, res, next) {
   let insertPrice = req.body.insert_price;
   let insertQuantity = req.body.insert_quantity;
   insertProductModule(insertName, insertPrice, insertQuantity, shop_id)
-  TimeOut(1000)
   let tableString = await tableProductModule(shop_id, role)
-  TimeOut(2000)
   res.render('users', {
     title: 'USER page',
     data: tableString,

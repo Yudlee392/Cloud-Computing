@@ -2,23 +2,34 @@ const express = require('express');
 const app = require('../app');
 const router = express.Router();
 const authenModule = require('../models/authenticator')
+const signupModule = require('../models/signup')
 var path = require('path');
 
 // Declare a variable for session
 var session;
 /* GET home page. */
-// router.get('/', function (req, res, next) {
-//   res.render('../views/index.ejs', { title: 'ATN SHOP' });
-// });
-
-/* GET login page. */
 router.get('/', function (req, res, next) {
-  res.render('login', { title: 'We are ATN Company', notice: "" })
-})
+  res.render('index');
+});
+
 router.post('/',  function (req, res, next) {
   res.render('login', { title: 'We are ATN Company', notice : ""})
 })
 
+router.get('/signup', function (req, res, next) {
+  res.render('signup');
+});
+
+router.post('/signup', function (req, res, next) {
+  let name = req.body.name
+  let shop = req.body.shop
+  let password = req.body.password
+  if (name && shop && password) {
+    signupModule(name, shop, password)
+    res.render('login', { title: 'We are ATN Company', notice: "Sign up successfully. Please login again" })
+  }
+  res.render('login', { title: 'We are ATN Company', notice: "Sign up failed" })
+});
 
 /* POST login page. */
 router.post('/login', async function (req, res, next) {

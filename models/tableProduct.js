@@ -17,7 +17,7 @@ async function tableString(shopId, role) {
             heading += `${fieldName.toUpperCase()}: ${shopInfo[fieldName]}; `
         }
     })
-    if (role == 'shop') { heading += '<a style="text-shadow: none;" href="/logout" class="btn btn-danger">Logout</a>' }
+    if (role == 'shop') { heading += '<a style="text-shadow: none;" href="/logout" class="btn btn-outline-danger btn-logout">Log out</a>' }
 
     //! Heading of table
     let tableHeading = ''
@@ -77,7 +77,7 @@ async function tableString(shopId, role) {
 
     //? Table HTML
     let tableString = `
-        <section class="intro">
+        <div class="intro">
             <div class="gradient-custom-1 h-100">
                 <div class="mask d-flex align-items-center h-100">
                     <div class="container">
@@ -99,7 +99,7 @@ async function tableString(shopId, role) {
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     `
 
     return tableString

@@ -11,6 +11,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
+  <link rel="icon" href="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp">
     <title>
         <%= title %>
     </title>
@@ -29,7 +30,7 @@
             background: -webkit-linear-gradient(to top, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1));
 
             /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            background: linear-gradient(to top, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1))
+            background: linear-gradient(147deg, #FFE53B 0%, #FF2525 100%)
         }
 
         table td,
@@ -120,16 +121,14 @@
             position: absolute;
             top: 16px;
             right: 16px;
+            color: white;
+            border-color: white;
         }
     </style>
 </head>
 
 <body>
-
-    <h1>
-        <%= title %>
-    </h1>
-    <a href="/logout" class="btn btn-danger btn-logout">Logout</a> <br>
+    <a href="/logout" class="btn btn-outline-danger btn-logout">Log out</a>
     <%- selectBox %>
         <%- selectData %>
 

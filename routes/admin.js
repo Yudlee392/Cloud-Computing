@@ -15,6 +15,8 @@ router.get('/', async function (req, res, next) {
          selectBox: selectString,
          selectData: selectShopData
       })
+   } else {
+      res.render('login', { title: 'We are ATN Company', notice: "Please login first" })
    }
 });
 
