@@ -13,10 +13,10 @@ var session;
 
 /* GET login page. */
 router.get('/', function (req, res, next) {
-  res.render('login', { title: 'Login page', notice: "" })
+  res.render('login', { title: 'We are ATN Company', notice: "" })
 })
 router.post('/',  function (req, res, next) {
-  res.render('login', { title: 'Login page', notice : ""})
+  res.render('login', { title: 'We are ATN Company', notice : ""})
 })
 
 
@@ -39,7 +39,7 @@ router.post('/login', async function (req, res, next) {
     }
   }
   else {
-    res.render('login', { title: 'Login page', notice: "Wrong username or password"})
+    res.render('login', { title: 'We are ATN Company', notice: "Wrong username or password"})
   }
 });
 

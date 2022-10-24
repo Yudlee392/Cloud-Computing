@@ -10,26 +10,69 @@
     </title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        html,
+        body,
+        .intro {
+            height: 100%;
+        }
+
+        .gradient-custom-1 {
+            /* fallback for old browsers */
+            background: #cd9cf2;
+
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: -webkit-linear-gradient(to top, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1));
+
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: linear-gradient(to top, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1))
+        }
+
+        table td,
+        table th {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        tbody td {
+            font-weight: 500;
+            color: #999999;
+        }
+
+        .retroshd {
+            color: #2c2c2c;
+            background-color: #d5d5d5;
+            letter-spacing: .05em;
+            text-shadow: 4px 4px 0px #d5d5d5, 7px 7px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .retroshd:hover {
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
-    <%- data %>
-    <br>
-    <h6 class="message" style="color: red;"><%= message %></h6>
-    <!-- <a href="http://127.0.0.1:3000/users" class="btn btn-primary">Refresh</a> -->
 
-    <script>
-        let message = document.querySelector('.message').textContent
-        if(message == 'Deleted successfully' || message == 'Updated successfully') {
-            window.onload = function () {
-                if (!window.location.hash) {
-                    window.location = window.location + '#loaded';
-                    window.location.reload();
+    <%- data %>
+        <h6 class="message" style="display: none;">
+            <%= message %>
+        </h6>
+        <!-- <a href="http://127.0.0.1:3000/users" class="btn btn-primary">Refresh</a> -->
+
+        <script>
+            let message = document.querySelector('.message').textContent
+            if (message == 'Deleted successfully' || message == 'Updated successfully') {
+                window.onload = function () {
+                    if (!window.location.hash) {
+                        window.location = window.location + '#loaded';
+                        window.location.reload();
+                    }
                 }
             }
-        }
-        
-    </script>
+
+        </script>
 </body>
 
 </html>

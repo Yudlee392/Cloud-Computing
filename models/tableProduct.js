@@ -10,7 +10,7 @@ async function tableString(shopId, role) {
     let [shopInfo, shopField] = await shopData(shopId)
 
     //* shop info
-    let heading = ''
+    let heading = 'Shop '
     shopField.forEach(field => {
         let fieldName = field.name
         if (fieldName) {
@@ -19,16 +19,16 @@ async function tableString(shopId, role) {
     })
     if (role == 'shop') { heading += '<a href="/logout" class="btn btn-danger">Logout</a>' }
 
-    //* Heading of table
+    //! Heading of table
     let tableHeading = ''
     productsField.forEach(field => {
-        tableHeading += `<th scope="col">${field.name}</th>`
+        tableHeading += `<th scope="col">${field.name.toUpperCase()}</th>`
     })
     if (role == 'shop') {
         tableHeading += `<th scope="col">Action</th>`
     }
-    
-    //* Body of table
+
+    //! Body of table
     let tableBody = ''
     for (let i = 0; i < productsRowCount; i++) {
         tableBody += '<tr>'
@@ -42,10 +42,10 @@ async function tableString(shopId, role) {
             tableBody += `
                 <td style="display: flex;">
                 <form action ="/users/delete" method = "post">
-                    <button type="submit" class="btn btn-danger" name="delete" value ="${productsInfo[i].id}">Delete</button>
+                    <button type="submit" class="btn btn-outline-danger" data-mdb-ripple-color="dark" name="delete" value ="${productsInfo[i].id}">Delete</button>
                 </form>
                 <form action ="/users/update" method = "post">
-                    <button type="submit" class="btn btn-primary ml-1" name ="update" value ="${productsInfo[i].id}">Update</button>
+                    <button type="submit" class="btn btn-outline-primary ml-3" data-mdb-ripple-color="dark" name ="update" value ="${productsInfo[i].id}">Update</button>
                 </form>
                 </td>`
         }
@@ -58,7 +58,7 @@ async function tableString(shopId, role) {
                     <input type="text" class="form-control" readonly>
                 </td>
             `
-        for (let i = 1; i < productsField.length -1; i++) {
+        for (let i = 1; i < productsField.length - 1; i++) {
             tableBody += `
                 <td>
                     <input type="text" class="form-control" name="insert_${productsField[i].name}" placeholder="${productsField[i].name.toUpperCase()}">
@@ -70,24 +70,36 @@ async function tableString(shopId, role) {
                     <input type="text" class="form-control" readonly>
                 </td>
             `
-        tableBody += `<td><button style="width: 160px !important;" type="submit" class="btn btn-success" name="insert" value ="insert">Insert</button></td>
+        tableBody += `<td><button style="width: 160px !important;" type="submit" class="btn btn-outline-success" data-mdb-ripple-color="dark" name="insert" value ="insert">Insert</button></td>
                     </form> </tr>
         `
     }
 
     //? Table HTML
     let tableString = `
-        <blockquote class="blockquote mt-4">
-            <p class="mb-0">${heading}</p>
-        </blockquote>
-        <table class="table mt-4">
-        <thead class="thead-dark">
-            <tr>${tableHeading}</tr>
-        </thead>
-        <tbody>
-            ${tableBody}
-        </tbody>
-        </table>
+        <section class="intro">
+            <div class="gradient-custom-1 h-100">
+                <div class="mask d-flex align-items-center h-100">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <h4 class="retroshd">${heading}</h4>
+                            <div class="col-12">
+                                <div class="table-responsive bg-white">
+                                    <table class="table mb-0">
+                                        <thead class="">
+                                            <tr>${tableHeading}</tr>
+                                        </thead>
+                                        <tbody>
+                                            ${tableBody}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     `
 
     return tableString

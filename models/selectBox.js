@@ -12,12 +12,14 @@ async function allShopData() {
     })
     let selectString = `
         <form method ="POST" action ="/admin/adminFind">
-            <p class="h4">Select shop</p>
-            <select class="custom-select" name="selectShop">
-                <option value = "all" selected>All shop</option>
-                ${optionSelect}
-            </select>
-            <button type="submit" class="btn btn-primary mt-4">Submit</button>
+            <h2 class="heading-select">Select shop</h2>
+            <div class="optionbox">
+                <select class="custom-select" name="selectShop">
+                    <option value = "all" selected>All shop</option>
+                    ${optionSelect}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success btn-rounded button-select">Submit</button>
         </form>
     `
     return selectString;
