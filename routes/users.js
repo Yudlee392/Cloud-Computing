@@ -6,6 +6,7 @@ const updateProductModule = require('../models/productUpdate');
 const deleteProductModule = require('../models/productDelete');
 const formProductModule = require('../models/productForm');
 const TimeOut = require('../models/timeOut');
+const userDataModule = require('../models/userData');
 
 var session;
 
@@ -16,10 +17,12 @@ router.get('/', async function (req, res, next) {
     let username = session.user_id;
     let shop_id = session.shop_id;
     let role = session.role;
+    let userData = await userDataModule(username, shop_id)
     let tableString = await tableProductModule(shop_id, role)
     res.render('users', {
       title: 'USER page',
       data: tableString,
+      user_data: userData,
       message: ''
     })
   } else {
@@ -43,65 +46,60 @@ router.get('/', async function (req, res, next) {
 //   }
 // });
 
-
-router.post('/insert', async function (req, res, next) {
+router.post('/', async function (req, res, next) {
   session = req.session;
   let shop_id = session.shop_id;
   let role = session.role;
-  let message = ''
-  let insertName = req.body.insert_name;
-  let insertPrice = req.body.insert_price;
-  let insertQuantity = req.body.insert_quantity;
-  insertProductModule(insertName, insertPrice, insertQuantity, shop_id)
-  let tableString = await tableProductModule(shop_id, role)
-  res.render('users', {
-    title: 'USER page',
-    data: tableString,
-    message: 'Insert successfully'
-  })
-})
-
-router.post('/delete', async function (req, res, next) { 
-  let deleteProductId = req.body.delete
-  let shop_id = session.shop_id;
-  let role = session.role;
-  deleteProductModule(deleteProductId, shop_id)
-  let tableString = await tableProductModule(shop_id, role)
-  res.render('users', {
-    title: 'USER page',
-    data: tableString,
-    message: 'Deleted successfully'
-  })
-})
-
-router.post('/update', async function (req, res, next) {
-  session = req.session;
-  let shop_id = session.shop_id;
-  let role = session.role;
-  let updateProduct = req.body.update
+  let username = session.user_id;
+  let userData = await userDataModule(username, shop_id)
+  let insertAction = req.body.insert
+  let deleteId = req.body.delete
+  let updateId = req.body.update
   let updated = req.body.updated;
-  let tableString
-  if (updateProduct) {
-    formGroup = await formProductModule(updateProduct)
+  if (insertAction) {
+    let insertName = req.body.insert_name;
+    let insertPrice = req.body.insert_price;
+    let insertQuantity = req.body.insert_quantity;
+    insertProductModule(insertName, insertPrice, insertQuantity, shop_id)
+    let tableString = await tableProductModule(shop_id, role)
+    res.render('users', {
+      title: 'USER page',
+      data: tableString,
+      user_data: userData,
+      message: 'Insert successfully'
+    })
+  } else if (deleteId) {
+    deleteProductModule(deleteId, shop_id)
+    let tableString = await tableProductModule(shop_id, role)
+    res.render('users', {
+      title: 'USER page',
+      data: tableString,
+      user_data: userData,
+      message: 'Deleted successfully'
+    })
+  }
+  else if (updateId) {
+    formGroup = await formProductModule(updateId)
     res.render('updateProduct', {
       formGroup: formGroup,
-      idUpdate: updateProduct,
+      idUpdate: updateId,
     });
-  }
-  if (updated) {
+  } else if (updated) {
     let id = req.body.id;
     let name = req.body.name;
     let price = req.body.price;
     let quantity = req.body.quantity;
     updateProductModule(id, name, price, quantity, shop_id)
-    tableString = await tableProductModule(shop_id, role)
+    let tableString = await tableProductModule(shop_id, role)
     res.render('users', {
       title: 'USER page',
       data: tableString,
+      user_data: userData,
       message: 'Updated successfully'
     })
   }
 })
+
 
 
 

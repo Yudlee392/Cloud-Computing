@@ -58,23 +58,24 @@
 
         .heading-select {
             position: absolute;
-            top: 13%;
+            top: 38px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .optionbox {
+            position: absolute;
+            top: 98px;
             left: 50%;
             transform: translate(-50%, -50%);
         }
 
         .button-select {
             position: absolute;
-            top: 28%;
+            top: 155px;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 250px;
-        }
-        .optionbox {
-            position: absolute;
-            top: 21%;
-            left: 50%;
-            transform: translate(-50%, -50%);
         }
 
         .optionbox select {
@@ -121,15 +122,22 @@
             position: absolute;
             top: 16px;
             right: 16px;
-            color: white;
-            border-color: white;
+            color: #FF2525;
+            border-color: #FF2525;
+        }
+
+        .select-container {
+            height: 200px;
+            background-color: #FFE53B;
         }
     </style>
 </head>
 
 <body>
     <a href="/logout" class="btn btn-outline-danger btn-logout">Log out</a>
-    <%- selectBox %>
+    <div class="select-container">
+        <%- selectBox %>
+    </div>
         <%- selectData %>
 
             <script type="text/JavaScript">
