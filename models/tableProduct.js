@@ -46,7 +46,7 @@ async function tableString(shopId, role) {
         if (role == 'shop') {
             tableBody += `
                 <td style="display: flex;">
-                <form action ="/users" method = "post">
+                <form action ="" method = "post">
                     <button type="submit" class="btn btn-outline-danger" data-mdb-ripple-color="dark" name="delete" value ="${productsInfo[i].id}">Delete</button>
                     <button type="submit" class="btn btn-outline-primary ml-3" data-mdb-ripple-color="dark" name ="update" value ="${productsInfo[i].id}">Update</button>
                 </form>
@@ -55,7 +55,7 @@ async function tableString(shopId, role) {
         tableBody += `</tr>`
     }
     if (role == 'shop') {
-        tableBody += `<tr> <form method = "post" action ="/users">`
+        tableBody += `<tr> <form method = "post" action ="">`
         tableBody += `
                 <td>
                     <input type="text" class="form-control" readonly>
