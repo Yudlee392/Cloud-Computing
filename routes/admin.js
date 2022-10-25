@@ -21,7 +21,7 @@ router.get('/', async function (req, res, next) {
 });
 
 /* POST admin page. */
-router.post('/adminFind', async function (req, res, next) {
+router.post('/', async function (req, res, next) {
    session = req.session;
    if (session.user_id) {
       let username = session.user_id;

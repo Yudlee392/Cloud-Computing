@@ -11,7 +11,7 @@ async function allShopData() {
         optionSelect += `<option value="${row[fieldName]}">${row[fieldName]}</option>`
     })
     let selectString = `
-        <form method ="POST" action ="/admin/adminFind">
+        <form method ="POST" action ="">
             <h2 class="heading-select">Select shop</h2>
             <div class="optionbox">
                 <select class="custom-select" name="selectShop">

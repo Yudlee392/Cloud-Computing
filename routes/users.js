@@ -29,22 +29,6 @@ router.get('/', async function (req, res, next) {
     res.render('login', { title: 'We are ATN Company', notice: "Please login first" })
   }
 });
-// router.get('/delete', async function (req, res, next) {
-//   session = req.session;
-//   if (session.user_id) {
-//     let username = session.user_id;
-//     let shop_id = session.shop_id;
-//     let role = session.role;
-//     let tableString = await tableProductModule(shop_id, role)
-//     res.render('users', {
-//       title: 'USER page',
-//       data: tableString,
-//       message: ''
-//     })
-//   } else {
-//     res.render('login', { title: 'Login page', notice: "Please login first" })
-//   }
-// });
 
 router.post('/', async function (req, res, next) {
   session = req.session;
