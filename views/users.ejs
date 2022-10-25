@@ -133,17 +133,9 @@
 
     <script>
         let message = document.querySelector('.message').textContent.trim();
-        if (message == 'Deleted successfully' || message == 'Updated successfully') {
-            window.onload = function () {
-                if (!window.location.hash) {
-                    window.location = window.location + '#loaded';
-                    window.location.reload();
-                }
-            }
-        } 
-        else if (message == 'Insert successfully') {
+        if (message == 'Deleted successfully' || message == 'Updated successfully' || message == 'Insert successfully') {
             window.location.replace('/users');
-        }
+        } 
     </script>
 
 </body>
