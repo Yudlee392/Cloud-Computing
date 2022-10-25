@@ -6,16 +6,14 @@ async function dataProduct(productId) {
     }
     var query_data = await pg_conn.query(product_query)
     let formString = ''
-    let isID = true;
     query_data.fields.forEach(field => {
-        if (isID) {
+        if (field.name == 'id' || field.name == 'shop') {
             formString += `
             <div class="form-group">
                 <label for="${field.name}-product">${field.name.toUpperCase()}</label>
                 <input readonly type="text" value="${query_data.rows[0][field.name]}" class="form-control" id="${field.name}-product" name="${field.name}" placeholder="${field.name.toUpperCase()} PRODUCT">
             </div>
         `
-            isID = false
         } else {
             formString += `
             <div class="form-group">

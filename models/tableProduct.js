@@ -9,15 +9,20 @@ async function tableString(shopId, role) {
     let [productsInfo, productsRowCount, productsField] = await productData(shopId)
     let [shopInfo, shopField] = await shopData(shopId)
 
-    //* shop info
-    let heading = 'Shop '
-    shopField.forEach(field => {
-        let fieldName = field.name
-        if (fieldName) {
-            heading += `${fieldName.toUpperCase()}: ${shopInfo[fieldName]}; `
-        }
-    })
-    if (role == 'shop') { heading += '<a style="text-shadow: none;" href="/logout" class="btn btn-outline-danger btn-logout">Log out</a>' }
+    let heading = '';
+    if (role != 'shop') {
+        //* shop info
+        heading = 'Shop '
+        shopField.forEach(field => {
+            let fieldName = field.name
+            if (fieldName) {
+                heading += `${fieldName.toUpperCase()}: ${shopInfo[fieldName]}; `
+            }
+        })
+    }
+    
+    
+    
 
     //! Heading of table
     let tableHeading = ''
@@ -41,10 +46,8 @@ async function tableString(shopId, role) {
         if (role == 'shop') {
             tableBody += `
                 <td style="display: flex;">
-                <form action ="/users/delete" method = "post">
+                <form action ="/users" method = "post">
                     <button type="submit" class="btn btn-outline-danger" data-mdb-ripple-color="dark" name="delete" value ="${productsInfo[i].id}">Delete</button>
-                </form>
-                <form action ="/users/update" method = "post">
                     <button type="submit" class="btn btn-outline-primary ml-3" data-mdb-ripple-color="dark" name ="update" value ="${productsInfo[i].id}">Update</button>
                 </form>
                 </td>`
@@ -52,7 +55,7 @@ async function tableString(shopId, role) {
         tableBody += `</tr>`
     }
     if (role == 'shop') {
-        tableBody += `<tr> <form method = "post" action ="/users/insert">`
+        tableBody += `<tr> <form method = "post" action ="/users">`
         tableBody += `
                 <td>
                     <input type="text" class="form-control" readonly>
