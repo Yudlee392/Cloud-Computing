@@ -13,7 +13,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/',  function (req, res, next) {
-  res.render('login', { title: 'We are ATN Company', notice : ""})
+  res.render('login', { title: 'ATN SHOP', notice : ""})
 })
 
 router.get('/signup', function (req, res, next) {
@@ -26,9 +26,9 @@ router.post('/signup', function (req, res, next) {
   let password = req.body.password
   if (name && shop && password) {
     signupModule(name, shop, password)
-    res.render('login', { title: 'We are ATN Company', notice: "Sign up successfully. Please login again" })
+    res.render('login', { title: 'ATN SHOP', notice: "Sign up successfully. Please login again" })
   }
-  res.render('login', { title: 'We are ATN Company', notice: "Sign up failed" })
+  res.render('login', { title: 'ATN SHOP', notice: "Sign up failed" })
 });
 
 /* POST login page. */
@@ -50,7 +50,7 @@ router.post('/login', async function (req, res, next) {
     }
   }
   else {
-    res.render('login', { title: 'We are ATN Company', notice: "Wrong username or password"})
+    res.render('login', { title: 'ATN SHOP', notice: "Wrong username or password"})
   }
 });
 

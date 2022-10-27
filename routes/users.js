@@ -27,7 +27,7 @@ router.get('/', async function (req, res, next) {
       message: ''
     })
   } else {
-    res.render('login', { title: 'We are ATN Company', notice: "Please login first" })
+    res.render('login', { title: 'ATN SHOP', notice: "Please login first" })
   }
 });
 
