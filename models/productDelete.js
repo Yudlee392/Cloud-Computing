@@ -4,7 +4,11 @@ async function deleteProduct(id, shopId) {
         text: 'DELETE FROM public.products WHERE id = $1 AND shop = $2; ',
         values: [id, shopId]
     }
-    var query_data = await pg_conn.query(delete_query)
-    console.log("Delete successfully")
+    try {
+        var query_data = await pg_conn.query(delete_query)
+        console.log("Delete successfully")
+    } catch (err) {
+        console.log(err.message)
+    }
 }
 module.exports = deleteProduct;
