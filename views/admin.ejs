@@ -16,6 +16,33 @@
         <%= title %>
     </title>
     <style>
+        .table-container {
+            max-height: 500px;
+            display: flex;
+            flex-flow: column;
+            height: 100%;
+            width: 100%;
+        }
+        .thead-modifier {
+            /* head takes the height it requires, 
+            and it's not scaled when table is resized */
+            flex: 0 0 auto;
+            width: calc(100% - 0.9em);
+        }
+        .tbody-modifier {
+            /* body takes all the remaining available space */
+            flex: 1 1 auto;
+            display: block;
+            overflow-y: scroll;
+        }
+        .tr-modifier {
+            width: 100%;
+        }
+        .thead-modifier, .tr-modifier {
+            display: table;
+            table-layout: fixed;
+        }
+
         html,
         body,
         .intro {

@@ -36,7 +36,7 @@ async function tableString(shopId, role) {
     //! Body of table
     let tableBody = ''
     for (let i = 0; i < productsRowCount; i++) {
-        tableBody += '<tr>'
+        tableBody += '<tr class="tr-modifier">'
         for (let j = 0; j < productsField.length; j++) {
             let fieldName = productsField[j].name
             tableBody += `
@@ -54,26 +54,27 @@ async function tableString(shopId, role) {
         }
         tableBody += `</tr>`
     }
+    let tableInsert = ''
     if (role == 'shop') {
-        tableBody += `<tr> <form method = "post" action ="">`
-        tableBody += `
+        tableInsert += `<tr> <form method = "post" action ="">`
+        tableInsert += `
                 <td>
                     <input type="text" class="form-control" readonly>
                 </td>
             `
         for (let i = 1; i < productsField.length - 1; i++) {
-            tableBody += `
+            tableInsert += `
                 <td>
                     <input type="text" class="form-control" name="insert_${productsField[i].name}" placeholder="${productsField[i].name.toUpperCase()}">
                 </td>
             `
         }
-        tableBody += `
+        tableInsert += `
                 <td>
                     <input type="text" class="form-control" readonly>
                 </td>
             `
-        tableBody += `<td><button style="width: 160px !important;" type="submit" class="btn btn-outline-success" data-mdb-ripple-color="dark" name="insert" value ="insert">Insert</button></td>
+        tableInsert += `<td><button style="width: 160px !important;" type="submit" class="btn btn-outline-success" data-mdb-ripple-color="dark" name="insert" value ="insert">Insert</button></td>
                     </form> </tr>
         `
     }
@@ -88,13 +89,16 @@ async function tableString(shopId, role) {
                             <h4 class="retroshd">${heading}</h4>
                             <div class="col-12">
                                 <div class="table-responsive bg-white">
-                                    <table class="table mb-0">
-                                        <thead class="">
+                                    <table class="table mb-0 table-container">
+                                        <thead class="thead-modifier">
                                             <tr>${tableHeading}</tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="tbody-modifier">
                                             ${tableBody}
                                         </tbody>
+                                    </table>
+                                    <table class="table mb-0">
+                                        ${tableInsert}
                                     </table>
                                 </div>
                             </div>

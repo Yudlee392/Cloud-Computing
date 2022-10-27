@@ -45,22 +45,22 @@ router.post('/', async function (req, res, next) {
     let insertName = req.body.insert_name;
     let insertPrice = req.body.insert_price;
     let insertQuantity = req.body.insert_quantity;
-    insertProductModule(insertName, insertPrice, insertQuantity, shop_id)
+    let insertMessage = await insertProductModule(insertName, insertPrice, insertQuantity, shop_id)
     let tableString = await tableProductModule(shop_id, role)
     res.render('users', {
       title: 'USER page',
       data: tableString,
       user_data: userData,
-      message: 'Insert successfully'
+      message: insertMessage
     })
   } else if (deleteId) {
-    deleteProductModule(deleteId, shop_id)
+    let deleteMessage= await deleteProductModule(deleteId, shop_id)
     let tableString = await tableProductModule(shop_id, role)
     res.render('users', {
       title: 'USER page',
       data: tableString,
       user_data: userData,
-      message: 'Deleted successfully'
+      message: deleteMessage
     })
   }
   else if (updateId) {
@@ -74,13 +74,13 @@ router.post('/', async function (req, res, next) {
     let name = req.body.name;
     let price = req.body.price;
     let quantity = req.body.quantity;
-    updateProductModule(id, name, price, quantity, shop_id)
+    let updateMessage = await updateProductModule(id, name, price, quantity, shop_id)
     let tableString = await tableProductModule(shop_id, role)
     res.render('users', {
       title: 'USER page',
       data: tableString,
       user_data: userData,
-      message: 'Updated successfully'
+      message: updateMessage
     })
   }
 })

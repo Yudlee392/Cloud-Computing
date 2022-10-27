@@ -6,9 +6,10 @@ async function deleteProduct(id, shopId) {
     }
     try {
         var query_data = await pg_conn.query(delete_query)
-        console.log("Delete successfully")
+        return 'Deleted successfully'
     } catch (err) {
         console.log(err.message)
+        return 'Delete failed'
     }
 }
 module.exports = deleteProduct;

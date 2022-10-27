@@ -6,9 +6,10 @@ async function updateProduct(id, name, price, quantity, shopId) {
     }
     try {
         var query_data = await pg_conn.query(update_query)
-        console.log("Update successfully")
-    } catch(err) {
+        return 'Updated successfully'
+    } catch (err) {
         console.log(err.message)
+        return 'Update Failed'
     }
 }
 module.exports = updateProduct;

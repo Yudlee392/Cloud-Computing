@@ -32,45 +32,72 @@
     <link href="assets/css/style.css" rel="stylesheet">
     <link rel="icon" href="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp">
     <style>
+        .table-container {
+            max-height: 500px;
+            display: flex;
+            flex-flow: column;
+            height: 100%;
+            width: 100%;
+        }
+        .thead-modifier {
+            /* head takes the height it requires, 
+            and it's not scaled when table is resized */
+            flex: 0 0 auto;
+            width: calc(100% - 0.9em);
+        }
+        .tbody-modifier {
+            /* body takes all the remaining available space */
+            flex: 1 1 auto;
+            display: block;
+            overflow-y: scroll;
+        }
+        .tr-modifier {
+            width: 100%;
+        }
+        .thead-modifier, .tr-modifier {
+            display: table;
+            table-layout: fixed;
+        }
+
         html,
         body,
         .intro {
             height: 100%;
         }
-    
+
         .gradient-custom-1 {
             /* fallback for old browsers */
             background: #cd9cf2;
-    
+
             /* Chrome 10-25, Safari 5.1-6 */
             background: -webkit-linear-gradient(to top, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1));
-    
+
             /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
             background: linear-gradient(147deg, #42275a, #734b6d)
         }
-    
+
         table td,
         table th {
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
         }
-    
+
         tbody td {
             font-weight: 500;
             color: #999999;
         }
-    
+
         .retroshd {
             color: #2c2c2c;
             letter-spacing: .05em;
             text-shadow: 4px 4px 0px #d5d5d5, 7px 7px 0px rgba(0, 0, 0, 0.2);
         }
-    
+
         .retroshd:hover {
             text-decoration: none;
         }
-    
+
         .btn-logout {
             position: absolute;
             top: 16px;
@@ -83,42 +110,43 @@
 </head>
 
 <body>
-    <a style="text-shadow: none;" href="/logout"
-        class="btn btn-outline-danger btn-logout">Log out</a>
+    <a style="text-shadow: none; z-index: 1;" href="/logout" class="btn btn-outline-danger btn-logout">Log out</a>
     <!-- ======= Mobile nav toggle button ======= -->
     <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
 
     <!-- ======= Header ======= -->
     <%- user_data %>
-    <!-- End Header -->
+        <!-- End Header -->
 
 
-    <main style="height: 100%;" id="main">
-        <%- data %>
-        <h6 class="message" style="display: none;"><%= message %></h6>
-    </main><!-- End #main -->
+        <main style="height: 100%; position: relative;" id="main">
+            <%- data %>
+                <h6 class="message2"style="position: absolute; color: red; bottom: 0; background-color: transparent; left: 12px;"><%= message %>
+                </h6>
+                <h6 class="message" style="display: none;"><%= message %></h6>
+        </main><!-- End #main -->
 
-    <!-- ======= Footer ======= -->
-    <footer id="footer">
-        <div class="container">
-            <div class="copyright">
-                &copy; Copyright <strong><span>Phan Nhat Linh</span></strong>
+        <!-- ======= Footer ======= -->
+        <footer id="footer">
+            <div class="container">
+                <div class="copyright">
+                    &copy; Copyright <strong><span>Phan Nhat Linh</span></strong>
+                </div>
+                <div class="credits">
+                    Designed by <a href="https://bootstrapmade.com/">Linh</a>
+                </div>
             </div>
-            <div class="credits">
-                Designed by <a href="https://bootstrapmade.com/">Linh</a>
-            </div>
-        </div>
-    </footer><!-- End  Footer -->
+        </footer><!-- End  Footer -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+                class="bi bi-arrow-up-short"></i></a>
 
-    <script>
-        let message = document.querySelector('.message').textContent.trim();
-        if (message == 'Deleted successfully' || message == 'Updated successfully' || message == 'Insert successfully') {
-            window.location.replace('/users');
-        } 
-    </script>
+        <script>
+            let message = document.querySelector('.message').textContent.trim();
+            if (message == 'Deleted successfully' || message == 'Updated successfully' || message == 'Insert successfully') {
+                window.location.replace('/users');
+            } 
+        </script>
 
 </body>
 
